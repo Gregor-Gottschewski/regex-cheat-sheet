@@ -1,0 +1,111 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{soul} % Required for \hl{}
+
+\geometry{left=1.5cm, right=1.5cm, top=2cm, bottom=2cm}
+
+\begin{document}
+\pagestyle{fancy}
+
+% Clear all headers and footers (see also \fancyhf{})
+\fancyhead{}\fancyfoot{}
+
+% Set the Centre header location but do not specify O or E
+\fancyhead[C]{Regex Cheatsheet}
+\fancyfoot[R]{\footnotesize Copyright Gregor Gottschewski 2025}
+
+\begin{multicols}{2}
+    \begin{tcolorbox}[colback=white, colframe=black, title=Metacharacters]
+        \texttt{.\ \textasciicircum\ \textdollar\ * + ?\ | ( ) \{ \} [ ]} \\[5mm]
+        Escape these characters with a backslash (\texttt{\textbackslash}) to match them literally.
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[colback=white, colframe=black, title=Basic Expressions]
+        \renewcommand{\arraystretch}{1.3}
+        \centering
+        \begin{tabular}{p{2cm}p{5cm}}
+            \hline
+            \textbf{Expression} & \textbf{Meaning}                     \\
+            \hline
+            \texttt{.}        & any character except new line \\
+            \texttt{abc}      & "abc"                              \\
+            \texttt{[a-e]}    & characters "a" to "e"                \\
+            \texttt{\textasciicircum abc}    & "abc" at the beginning of line              \\
+            \texttt{abc\$}    & "abc" at the end of line                \\
+            \texttt{a*}       & "a" zero or more times                 \\
+            \texttt{a+}       & "a" one or more times               \\
+            \texttt{a?}       & "a" (optional) one or more times                   \\
+            \texttt{a\{3\}}   & "a" exactly three times                      \\
+            \texttt{a\{2,4\}} & "a" two to four times                   \\
+        \end{tabular}\\[5mm]
+        Don't write \texttt{[a-Z]} or \texttt{[A-z]}!
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[colback=white, colframe=black, title=Character Classes]
+        \renewcommand{\arraystretch}{1.3}
+        \begin{tabular}{p{2cm}p{5cm}}
+            \hline
+            \textbf{Expression}         & \textbf{Meaning}              \\
+            \hline
+            \texttt{\textbackslash d} & number (0-9)                    \\
+            \texttt{\textbackslash w} & alphanumeric (a-z, A-Z, 0-9, \_) \\
+            \texttt{\textbackslash s} & whitespace                     \\
+            \texttt{\textbackslash D} & no number                    \\
+            \texttt{\textbackslash W} & no alphanumeric                \\
+            \texttt{\textbackslash S} & no whitespace                \\
+            \texttt{[abc]}            & "a" or "b" or "c"           \\
+            \texttt{[\textasciicircum abc]}          & not "a" or "b" or "c"     \\
+        \end{tabular}
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[colback=white, colframe=black, title=Groups]
+        \renewcommand{\arraystretch}{1.3}
+        \begin{tabular}{p{2cm}p{5cm}}
+            \hline
+            \textbf{Expression} & \textbf{Meaning}      \\
+            \hline
+            \texttt{(abc)}    & group "abc"            \\
+            \texttt{a|b}      & "a" or "b"            \\
+            \texttt{(ab|cd)}  & "ab" or "cd"          \\
+            \texttt{(?:abc)}  & group without capturing \\
+        \end{tabular}
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[colback=white, colframe=black, title=Extended Features]
+        \renewcommand{\arraystretch}{1.3}
+        \begin{tabular}{p{2cm}p{5cm}}
+            \hline
+            \textbf{Expression} & \textbf{Meaning}                          \\
+            \hline
+            \texttt{(?=abc)}  & Lookahead: followed by "abc"                \\
+            \texttt{(?!abc)}  & Negative Lookahead: not followed by "abc" \\
+            \texttt{(?<=abc)} & Lookbehind: after "abc"                      \\
+            \texttt{(?<!abc)} & Negative Lookbehind: not after "abc"       \\
+        \end{tabular}
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[colback=white, colframe=black, title=Examples]
+        Input: \texttt{The quick brown fox jumps over the lazy dog.} \\[5mm]
+        \begin{tabular}{p{2cm}p{5cm}}
+            \hline
+            \textbf{Expression} & \textbf{Result} \\
+            \hline
+            \texttt{fox} & \texttt{The quick brown \hl{fox} jumps over the lazy dog.} \\
+            \texttt{\textasciicircum The} & \texttt{\hl{The} quick brown fox jumps over the lazy dog.} \\
+            \texttt{dog\$} & \texttt{The quick brown fox jumps over the lazy \hl{dog}.} \\
+            \texttt{a*} & \texttt{The quick brown fox jumps over the l\hl{a}zy dog.} \\
+            \texttt{over.*} & \texttt{The quick brown fox jumps \hl{over the lazy dog.}} \\
+            \texttt{\textbackslash .} & \texttt{The quick brown fox jumps over the lazy dog\hl{.}} \\
+            \texttt{\textbackslash s} & \texttt{The\hl{ }quick\hl{ }brown\hl{ }fox\hl{ }jumps\hl{ }over\hl{ }the\hl{ }lazy\hl{ }dog.} \\
+            \texttt{o(?=x)} & \texttt{The quick brown f\hl{o}x jumps over the lazy dog.} \\
+        \end{tabular}
+    \end{tcolorbox}
+
+\end{multicols}
+\end{document}
