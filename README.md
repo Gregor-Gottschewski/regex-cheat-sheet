@@ -1,6 +1,6 @@
-# Regex Cheatsheet
+# Regex cheat sheet
 
-View or download the cheatsheet as PDF [here](/cheatsheet.pdf).
+View or download the cheat sheet as PDF [here](/cheatsheet.pdf).
 
 ## License
 
